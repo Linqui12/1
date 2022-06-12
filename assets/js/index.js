@@ -1,11 +1,74 @@
-class RangeValidator{
-    constructor(form,to){this.form(form),this.to(to);}
-    getterRange(){return[form,to]}
-    setterRange(form,to){constructor(form,to)}
+'use strict'
+class RangeValidator {
+    constructor(form, to) { this.form = form, this.to = to };
+    getterRange() { return [this.form, this.to] };
+    setterRange(form, to) { this.form = form, this.to = to };
+    checRange() { return (this.to - this.form) >= 0 ? true : false };
+    validate(numb) {
+        switch (this.checRange()) {
+            case true:
+                if (numb >= this.form && numb <= this.to) {
+                    return numb;
+                }
+                else return undefined;
+                
+
+            case false:
+                if (numb <= this.form && numb >= this.to) {
+                    return numb;
+                }
+                else return undefined;
+
+                
+            default:
+                alert(undefined);
+                break;
+        }
+    }
 
 };
 
-console.log(5);
-let test=new RangeValidator(5,7);
-let test1=test.getterRange();
+
+let test = new RangeValidator(5, 7);
+let test1 = test.getterRange();
+console.log(test);
 console.log(test1);
+test.setterRange(7, 12);
+console.log(test.validate(7));
+/////////////////////////////////////////////////
+
+class Figure3D {
+    constructor(name) { this.name = name };
+    fillVightBall() { return (1.3 * Math.PI * Math.pow(this.radius, 3)) };
+    fillVightCylinder() { return Math.PI * Math.pow(this.radius, 2) * this.hight };
+    fillVightCube() { return Math.pow(this.size, 3) };
+};
+class Ball extends Figure3D {
+    constructor(name, radius,) {
+        super(name);
+        this.radius = radius;
+    }
+    fillVightBall() { return super.fillVightBall(this.radius) };
+};
+class Cylinder extends Figure3D {
+    constructor(name, radius, hight) {
+        super(name);
+        this.radius = radius;
+        this.hight = hight;
+    }
+    fillVightCylinder() { return super.fillVightCylinder(this.radius, this.hight) };
+};
+class Cube extends Figure3D {
+    constructor(name, size) {
+        super(name);
+        this.size = size;
+
+    }
+    fillVightCube() { return super.fillVightCube(this.size) };
+};
+let ball = new Ball('ball', 15);
+console.log(ball.fillVightBall());
+let cylinder = new Cylinder('cylinder',25,12);
+console.log(cylinder.fillVightCylinder());
+let cube = new Cube('cube', 15);
+console.log(cube.fillVightCube());
