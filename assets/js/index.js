@@ -1,27 +1,44 @@
 'use strict'
 class RangeValidator {
+    #form
+    #to
+    /**
+     * 
+     * @param {number} form 
+     * @param {number} to 
+     */
     constructor(form, to) { this.form = form, this.to = to };
-    getterRange() { return [this.form, this.to] };
-    setterRange(form, to) { this.form = form, this.to = to };
+    set form(form) {
+        this.#form = form;
+    }
+    get form() {
+        return this.#form;
+    }
+    set to(to) {
+        this.#to = to;
+    }
+    get to() {
+        return this.#to;
+    }
+    get range() {
+        return [this.#form, this.#to];
+    }
     checRange() { return (this.to - this.form) >= 0 ? true : false };
+    /**
+     * @throws {RangeError}
+     */
     validate(numb) {
         switch (this.checRange()) {
             case true:
                 if (numb >= this.form && numb <= this.to) {
                     return numb;
                 }
-                else return undefined;
-                
-
             case false:
                 if (numb <= this.form && numb >= this.to) {
                     return numb;
                 }
-                else return undefined;
-
-                
             default:
-                alert(undefined);
+                throw RangeError(`The number ${number} is not in the range between ${this.#form} and ${this.#to}`);
                 break;
         }
     }
@@ -30,10 +47,9 @@ class RangeValidator {
 
 
 let test = new RangeValidator(5, 7);
-let test1 = test.getterRange();
+let test1 = test.range;
 console.log(test);
 console.log(test1);
-test.setterRange(7, 12);
 console.log(test.validate(7));
 /////////////////////////////////////////////////
 
@@ -68,7 +84,7 @@ class Cube extends Figure3D {
 };
 let ball = new Ball('ball', 15);
 console.log(ball.fillVightBall());
-let cylinder = new Cylinder('cylinder',25,12);
+let cylinder = new Cylinder('cylinder', 25, 12);
 console.log(cylinder.fillVightCylinder());
 let cube = new Cube('cube', 15);
 console.log(cube.fillVightCube());
